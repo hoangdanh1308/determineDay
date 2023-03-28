@@ -1,1 +1,50 @@
-in
+#include <stdio.h>
+#include <stdint.h>
+
+uint32_t inputNumber;
+uint8_t digitsArray[7];
+char *read[] = {" ","MUOI","TRAM","NGHIN","MUOI","TRAM","TRIEU"};
+char *readNum[] = {"KHONG","MOT","HAI","BA","BON","NAM","SAU","BAY","TAM","CHIN"};
+uint8_t countDigitsofNumber(const uint32_t inputNumber){
+    uint8_t countDigits = 0;
+    uint32_t tempNumber = inputNumber;
+    while (tempNumber >= 1)
+    {   
+        ++countDigits;
+        tempNumber = tempNumber / 10;
+    };
+    return countDigits;
+}
+
+void separateDigits(const uint32_t inputNumber, uint8_t digitsArray[]){
+    uint32_t tempNumber = inputNumber;
+    for(int i = 0; i < countDigitsofNumber(inputNumber); i++){
+        digitsArray[i] = tempNumber % 10;
+        tempNumber = tempNumber / 10;
+    }
+}
+
+void readNumber(const uint32_t inputNumber, uint8_t digitsArray[]){
+    for(int i = countDigitsofNumber(inputNumber) - 1; i >= 0; i--){
+        if(digitsArray[i]==0){
+            continue;
+        }else{
+            printf("%s %s ",readNum[digitsArray[i]],read[i]);
+        }
+    }
+}
+
+int main(int argc, char const *argv[])
+{   
+    // printf("enter a number:\n");
+    // scanf("%d",&inputNumber);
+    inputNumber = 23445;
+    printf("%d\n",countDigitsofNumber(inputNumber));
+    separateDigits(inputNumber,digitsArray);
+    for(int i = 0; i < countDigitsofNumber(inputNumber); i++){
+        printf("%d\n",digitsArray[i]);
+    }
+    readNumber(inputNumber,digitsArray);
+    return 0;
+}
+
