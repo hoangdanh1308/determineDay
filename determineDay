@@ -1,3 +1,10 @@
+/*
+* File: determineDay.c
+* Author: Danh Nguyen
+* Date: 28/03/2023
+* Description: This is a determine file for determine what day of the week.
+*/
+
 #include <stdio.h>
 #include <stdint.h>
 #include <stdbool.h>
@@ -40,6 +47,14 @@ char *printMonth[]= {
 char *thedayofWeek[] = {"MONDAY","TUESDAY","WEDNESDAY","THURSDAY","FRIDAY","SATURDAY","SUNDAY"};
 const dayMonthYear dayStandard = {1, JANUARY, 2023}; // 01/01/2023 is SUNDAY.
 
+/*
+* Function: leapYear
+* Description: This function check leap year.
+* Input:
+*   inputYear - an const integer value
+* Output:
+*   returns 0 if false , 1 if true.
+*/
 bool leapYear(const int inputYear){
     if(inputYear % 4 == 0 || inputYear % 400 == 0){
          return true;
@@ -49,6 +64,15 @@ bool leapYear(const int inputYear){
     }
 }
 
+/*
+* Function: totalDayInMonth
+* Description: This function determine the number of days in the month.
+* Input:
+*   inputMonth - a Month enums
+*   inputYear - an const integer value
+* Output:
+*   return the number of days in the month. 
+*/
 int totalDayInMonth(Month inputMonth, const int inputYear){
     switch (inputMonth)
     {
@@ -78,6 +102,14 @@ int totalDayInMonth(Month inputMonth, const int inputYear){
     }
 }
 
+/*
+* Function: determineDay
+* Description: This function determine what day of the week.
+* Input:
+*   inputDayMonthYear - a daymonthYear struct
+* Output:
+*   void
+*/
 void determineDay(const dayMonthYear inputDayMonthYear){
     uint8_t numofLeapYear = 0;
     for (int i = dayStandard.Year;i < inputDayMonthYear.Year; i++){
