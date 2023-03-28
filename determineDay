@@ -1,0 +1,104 @@
+#include <stdio.h>
+#include <stdint.h>
+#include <stdbool.h>
+
+typedef enum{
+    JANUARY    = 1,
+    FEBRUARY   = 2,
+    MARCH      = 3,
+    APRIL      = 4,
+    MAY        = 5,
+    JUNE       = 6,
+    JULY       = 7,
+    AUGUST     = 8,  
+    SEPTEMBER  = 9,
+    OCTOCBER   = 10,
+    NOVEMBER   = 11,
+    DECEMBER   = 12,
+}Month;
+
+typedef struct{
+    uint8_t Day;
+    Month Month;
+    int Year;
+}dayMonthYear;
+
+char *printMonth[]= {
+    "JANUARY    ",
+    "FEBRUARY   ",
+    "MARCH      ",
+    "APRIL      ",
+    "MAY        ",
+    "JUNE       ",
+    "JULY       ",
+    "AUGUST     ",  
+    "SEPTEMBER  ",
+    "OCTOCBER   ",
+    "NOVEMBER   ",
+    "DECEMBER   ",
+};
+char *thedayofWeek[] = {"MONDAY","TUESDAY","WEDNESDAY","THURSDAY","FRIDAY","SATURDAY","SUNDAY"};
+const dayMonthYear dayStandard = {1, JANUARY, 2023}; // 01/01/2023 is SUNDAY.
+
+bool leapYear(const int inputYear){
+    if(inputYear % 4 == 0 || inputYear % 400 == 0){
+         return true;
+    }
+    else{
+        return false;
+    }
+}
+
+int totalDayInMonth(Month inputMonth, const int inputYear){
+    switch (inputMonth)
+    {
+    case JANUARY:
+    case MARCH:
+    case MAY:
+    case JULY:
+    case AUGUST:
+    case OCTOCBER:
+    case DECEMBER:
+        return 31;
+        break;
+    case APRIL:
+    case JUNE:
+    case SEPTEMBER:
+    case NOVEMBER:
+        return 30;
+        break;
+    case FEBRUARY:
+        if(leapYear(inputYear)){
+            return 29;
+        }else return 28;
+        break;
+    default:
+        printf("please re-enter the month");
+        break;
+    }
+}
+
+void determineDay(const dayMonthYear inputDayMonthYear){
+    uint8_t numofLeapYear = 0;
+    for (int i = dayStandard.Year;i < inputDayMonthYear.Year; i++){
+        if(leapYear(i))
+        numofLeapYear++;
+    }
+    uint64_t dayGap = (inputDayMonthYear.Year - dayStandard.Year)*365 + numofLeapYear + inputDayMonthYear.Day;
+    for (int i = JANUARY; i < inputDayMonthYear.Month; i ++){
+        dayGap = dayGap + totalDayInMonth(i, inputDayMonthYear.Year);
+    }
+    uint64_t week = dayGap % 7;
+    printf("%s, %d, %d is %s",printMonth[inputDayMonthYear.Month - 1], inputDayMonthYear.Day,inputDayMonthYear.Year ,thedayofWeek[week - 2]);
+
+}
+
+int main(int argc, char const *argv[])
+{
+    dayMonthYear currentDay = {1, JANUARY, 2024};
+    determineDay(currentDay);
+    return 0;
+}
+
+
+
