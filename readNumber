@@ -1,3 +1,10 @@
+/*
+* File: readNumber.c
+* Author: Danh Nguyen
+* Date: 28/03/2023
+* Description: This is a readNumber file for reading numbers.
+*/
+
 #include <stdio.h>
 #include <stdint.h>
 
@@ -5,17 +12,35 @@ uint32_t inputNumber;
 uint8_t digitsArray[7];
 char *read[] = {" ","MUOI","TRAM","NGHIN","MUOI","TRAM","TRIEU"};
 char *readNum[] = {"KHONG","MOT","HAI","BA","BON","NAM","SAU","BAY","TAM","CHIN"};
+
+/*
+* Function: countDigitsofNumber
+* Description: This function count the number of digits of a number
+* Input:
+*   inputNumber - an const unsign integer value
+* Output:
+*   returns the number of digits of a number
+*/
 uint8_t countDigitsofNumber(const uint32_t inputNumber){
     uint8_t countDigits = 0;
     uint32_t tempNumber = inputNumber;
     while (tempNumber >= 1)
     {   
         ++countDigits;
-        tempNumber = tempNumber / 10;
+        tempNumber = tempNumber / 10; 
     };
     return countDigits;
 }
 
+/*
+* Function: separateDigits
+* Description: This function separate the digits is to store them in an array
+* Input:
+*   inputNumber - a const unsign integer value
+*   digitsArray - a unsign integer array
+* Output:
+* void
+*/
 void separateDigits(const uint32_t inputNumber, uint8_t digitsArray[]){
     uint32_t tempNumber = inputNumber;
     for(int i = 0; i < countDigitsofNumber(inputNumber); i++){
@@ -24,27 +49,30 @@ void separateDigits(const uint32_t inputNumber, uint8_t digitsArray[]){
     }
 }
 
+/*
+* Function: readNumber
+* Description: This function is read numbers.
+* Input:
+*   inputNumber - a const unsign integer value
+*   digitsArray - a unsign integer array
+* Output:
+* void
+*/
 void readNumber(const uint32_t inputNumber, uint8_t digitsArray[]){
     for(int i = countDigitsofNumber(inputNumber) - 1; i >= 0; i--){
-        if(digitsArray[i]==0){
+        if(digitsArray[i] == 0){
             continue;
         }else{
-            printf("%s %s ",readNum[digitsArray[i]],read[i]);
+            printf("%s %s ", readNum[digitsArray[i]], read[i]);
         }
     }
 }
 
 int main(int argc, char const *argv[])
 {   
-    // printf("enter a number:\n");
-    // scanf("%d",&inputNumber);
-    inputNumber = 23445;
-    printf("%d\n",countDigitsofNumber(inputNumber));
+    printf("Enter a number:\n");
+    scanf("%d", &inputNumber);
     separateDigits(inputNumber,digitsArray);
-    for(int i = 0; i < countDigitsofNumber(inputNumber); i++){
-        printf("%d\n",digitsArray[i]);
-    }
-    readNumber(inputNumber,digitsArray);
+    readNumber(inputNumber, digitsArray);
     return 0;
 }
-
