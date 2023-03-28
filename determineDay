@@ -44,7 +44,7 @@ char *printMonth[]= {
     "NOVEMBER   ",
     "DECEMBER   ",
 };
-char *thedayofWeek[] = {"MONDAY","TUESDAY","WEDNESDAY","THURSDAY","FRIDAY","SATURDAY","SUNDAY"};
+char *thedayofWeek[] = {"SATURDAY","SUNDAY","MONDAY","TUESDAY","WEDNESDAY","THURSDAY","FRIDAY"};
 const dayMonthYear dayStandard = {1, JANUARY, 2023}; // 01/01/2023 is SUNDAY.
 
 /*
@@ -121,13 +121,12 @@ void determineDay(const dayMonthYear inputDayMonthYear){
         dayGap = dayGap + totalDayInMonth(i, inputDayMonthYear.Year);
     }
     uint64_t week = dayGap % 7;
-    printf("%s, %d, %d is %s",printMonth[inputDayMonthYear.Month - 1], inputDayMonthYear.Day,inputDayMonthYear.Year ,thedayofWeek[week - 2]);
-
+    printf("%s, %d, %d is %s",printMonth[inputDayMonthYear.Month - 1], inputDayMonthYear.Day,inputDayMonthYear.Year ,thedayofWeek[week]);
 }
 
 int main(int argc, char const *argv[])
 {
-    dayMonthYear currentDay = {1, JANUARY, 2024};
+    dayMonthYear currentDay = {2, JANUARY, 2023};
     determineDay(currentDay);
     return 0;
 }
